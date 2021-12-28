@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.antonioleiva.architectcoderslite.R
-import com.antonioleiva.architectcoderslite.data.LoginRepository
 import com.antonioleiva.architectcoderslite.data.success
+import com.antonioleiva.architectcoderslite.domain.TryLoginUseCase
 import kotlinx.coroutines.launch
 
 class MainViewModel(
-    private val loginRepository: LoginRepository = LoginRepository()
+    private val tryLoginUseCase: TryLoginUseCase = TryLoginUseCase()
 ) : ViewModel() {
 
     private val _uiState = MutableLiveData(UiState())
@@ -19,7 +19,7 @@ class MainViewModel(
     fun onTryLogin(user: String, pass: String) {
         viewModelScope.launch {
             _uiState.value = UiState(loggingIn = true)
-            val result = loginRepository.tryLogin(user, pass)
+            val result = tryLoginUseCase(user, pass)
             _uiState.value = UiState(
                 loggedIn = result.success,
                 userError = if (result.userError) R.string.user_error else null,
