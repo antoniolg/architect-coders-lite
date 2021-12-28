@@ -5,9 +5,9 @@ import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class LoginRemoteDataSourceTest {
+class LoginRemoteDataSourceImplTest {
 
-    private val ds = LoginRemoteDataSource()
+    private val ds = LoginRemoteDataSourceImpl()
 
     @Test
     fun `user without @ returns error`(): Unit = runBlocking {
