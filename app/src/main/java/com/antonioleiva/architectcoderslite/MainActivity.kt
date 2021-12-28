@@ -1,5 +1,6 @@
 package com.antonioleiva.architectcoderslite
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -23,10 +24,15 @@ class MainActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 binding.button.visibility = View.GONE
                 binding.progress.visibility = View.VISIBLE
-                tryLogin(binding.user.text.toString(), binding.pass.text.toString())
+                val success = tryLogin(binding.user.text.toString(), binding.pass.text.toString())
 
-                binding.button.visibility = View.VISIBLE
-                binding.progress.visibility = View.GONE
+                if (success) {
+                    startActivity(Intent(this@MainActivity, NextActivity::class.java))
+                    finish()
+                } else {
+                    binding.button.visibility = View.VISIBLE
+                    binding.progress.visibility = View.GONE
+                }
             }
         }
     }
